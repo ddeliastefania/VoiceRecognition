@@ -14,7 +14,7 @@ import os
 # ----
 def fctn():
     r = sr.Recognizer()
-    src = "jumatate.mp3"
+    src = "Intrebarea2.mp3"
     dst = "test.wav"
 
     sound = AudioSegment.from_mp3(src)
@@ -43,7 +43,7 @@ def fctn():
 
 def search_for_question_keyword(filename, listwords):
     try:
-        file = open(filename, "r")
+        file = open(filename, "r", encoding='utf-8')
         read = file.readlines()
         file.close()
         for word in listwords:
@@ -183,7 +183,7 @@ def searchInDatabase(splitInput, keyword):
         # finaldate = str(date.day) + '/' + str(date.month) + '/' + str(date.year)  #pentru teste
         answer = call_database_for_answer("location", (date.strftime("%d/%m/%Y"), time))
 
-    if keyword == 'cand':
+    if keyword == 'cand' or keyword == 'când':
         location = search_for_location(splitInput)
         answer = call_database_for_answer("datetime", location)
     return answer
