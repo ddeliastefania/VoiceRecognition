@@ -1,13 +1,15 @@
-import string
+import contextlib
 import datetime
 import re
-from babel.dates import format_date, format_datetime, format_time
-import pyodbc
+import string
+import wave
 
+import pyodbc
 import speech_recognition as sr
 from pydub import AudioSegment
-import wave
-import contextlib
+
+from gtts import gTTS
+import os
 
 # ----
 def fctn():
@@ -207,4 +209,13 @@ prop = fctn()
 print("Intrebare pusa: ", prop)
 rez = prepare(prop)
 print(searchInDatabase(rez[0], rez[1]))
-print()
+
+
+raspuns = searchInDatabase(rez[0], rez[1])
+print(raspuns)
+language = 'ro'
+
+output = gTTS(raspuns, lang = language, slow = False)
+
+output.save("output.mp3")
+os.system("output.mp3")
