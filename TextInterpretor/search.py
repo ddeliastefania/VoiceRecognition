@@ -14,7 +14,7 @@ import os
 # ----
 def fctn():
     r = sr.Recognizer()
-    src = "Intrebarea2.mp3"
+    src = "Intrebarea1.mp3"
     dst = "test.wav"
 
     sound = AudioSegment.from_mp3(src)
@@ -43,7 +43,7 @@ def fctn():
 
 def search_for_question_keyword(filename, listwords):
     try:
-        file = open(filename, "r", encoding='utf-8')
+        file = open(filename, "r")
         read = file.readlines()
         file.close()
         for word in listwords:
@@ -140,7 +140,7 @@ def call_database_for_answer(type_of_answer, datas):
     # tablename = "gps_data"
     # database  = "tiln"
     conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
-                          'Server=(LocalDB)\localdb;'
+                          'Server=(LocalDb)\doNetLabs;'
                           'Database=tiln;'
                           'Trusted_Connection=yes;')
 
@@ -183,7 +183,7 @@ def searchInDatabase(splitInput, keyword):
         # finaldate = str(date.day) + '/' + str(date.month) + '/' + str(date.year)  #pentru teste
         answer = call_database_for_answer("location", (date.strftime("%d/%m/%Y"), time))
 
-    if keyword == 'cand' or keyword == 'când':
+    if keyword == 'cand':
         location = search_for_location(splitInput)
         answer = call_database_for_answer("datetime", location)
     return answer
@@ -217,5 +217,5 @@ language = 'ro'
 
 output = gTTS(raspuns, lang = language, slow = False)
 
-output.save("output.mp3")
+output.save("../Api send/uploads/output.mp3")
 os.system("output.mp3")
